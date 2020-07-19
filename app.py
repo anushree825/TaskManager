@@ -17,13 +17,13 @@ class Todo(db.Model):
     # def validate_content(self, key, value):
     #     assert value != ''
     #     return value
-    
-    def __chk__(self,content):
+
+    def __chk__(self, content):
         if (self.content != ""):
             pass
         else:
-            raise exception("Enter a nonempty string as task")     
-        
+            raise exception("Enter a nonempty string as task")
+
     def __repr__(self):
         return '<Task %r>' % self.id
 
@@ -39,14 +39,14 @@ def index():
                 db.session.commit()
                 return redirect('/')
             except:
-                return 'There was an issue adding your task'      
+                return 'There was an issue adding your task'
         else:
-            # return ('You entered an empty string') 
+            # return ('You entered an empty string')
             return redirect('/')
-        
+
     else:
         tasks = Todo.query.order_by(Todo.date_created).all()
-        return render_template('index.html', tasks=tasks )
+        return render_template('index.html', tasks=tasks)
 
 
 @app.route('/delete/<int:id>')
@@ -59,7 +59,7 @@ def delete(id):
         return redirect('/')
     except:
         return 'There was a problem deleting that task'
-        
+
 
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
@@ -76,6 +76,7 @@ def update(id):
 
     else:
         return render_template('update.html', task=task)
-     
+
+
 if __name__ == "__main__":
     app.run(debug=True)
